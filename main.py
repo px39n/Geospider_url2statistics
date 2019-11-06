@@ -12,7 +12,7 @@ import base
 #创建一个名为sheetname的表单
 
 
-def get_content(line="http://www.dianping.com/shop/5249640"):
+def get_content(line="https://www.dianping.com/search/keyword/123/0_%E7%BE%8E%E9%A3%9F"):
     
     headers = ('User-Agent', 'Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko')
     opener1 = urllib.request.build_opener()
@@ -31,17 +31,20 @@ def spider(url_decode,city_list):
         url="https://www.dianping.com/search/keyword/"+str(city)+"/0_"+url_decode
         try:
             count,name=get_content(url)
-            
+            print([city,name,count])
+            base.write_csv("data\food.csv",[city,name,count])
+        
         except:
             wrong_list.append(city)
         sleepNum=random.randint(7,20)
         time.sleep(sleepNum)
+        
     print(wrong_list)
 #----------------------------------
 #------------测试爬虫程序-------------
 #----------------------------------
 if __name__ == "__main__":
     url_decode="%E7%BE%8E%E9%A3%9F"
-    spider(url_decode,range(1,11))
-
+    #spider(url_decode,range(1,11))
     
+    print(get_content())
